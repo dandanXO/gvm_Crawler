@@ -6,7 +6,7 @@ const cheerio = require('cheerio')
 const schedule = require('node-schedule')
 
 //timer
-const timer
+let timer
 
 //middleware
 const checkAuth = require('../../middleware/check-auth')

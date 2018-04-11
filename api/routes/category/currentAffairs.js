@@ -4,13 +4,18 @@ const rp = require('request-promise')
 const request = require('request')
 const cheerio = require('cheerio')
 const schedule = require('node-schedule')
+const firebase = require("firebase")
+
+//firebase
+const databse = firebase.database();
 
 //timer
-const timer
+let timer
 
 //middleware
 const checkAuth = require('../../middleware/check-auth')
 
+//router further
 router.get('/:time', checkAuth, function (req, res) {
     const allData = []
     console.log(req.params.time + "開始爬蟲")
@@ -47,8 +52,7 @@ router.get('/:time', checkAuth, function (req, res) {
                     promises.push(rp(getArticleUrl[i])) // create a promise for each url and fire off the request
                 }
                 return Promise.all(promises)
-            })
-            .then(function (arrayOfResultsFromEachPreviousRequest) {
+            }).then(function (arrayOfResultsFromEachPreviousRequest) {
                 for (let i = 0; i < arrayOfResultsFromEachPreviousRequest.length; i++) {
                     const $ = cheerio.load(arrayOfResultsFromEachPreviousRequest[i])
                     const articlePicture = $('.pc-bigArticle section .pc-article-pic-full img').attr("src")
@@ -71,6 +75,17 @@ router.get('/:time', checkAuth, function (req, res) {
                         date: date,
                         articleId: articleId
                     })
+                    firebase.database().ref('currentAffairs/').orderByChild("articleId").equalTo(allData[i].articleId).once("value", snapshot => {
+                        const articleId = snapshot.val()
+                        if (articleId) {
+                            //console.log("exists!")
+                        } else {
+                            firebase.database().ref('currentAffairs/').push(
+                                allData[i]
+                            )
+                        }
+                    })
+
                 }
 
                 console.log(allData)
@@ -85,7 +100,7 @@ router.get('/:time', checkAuth, function (req, res) {
 })
 
 router.get('/', checkAuth, function (req, res) {
-    const allData = []
+    const newTenArticle = []
     console.log("開始爬蟲")
     const date = new Date(req.params.time)
 
@@ -120,7 +135,8 @@ router.get('/', checkAuth, function (req, res) {
                 promises.push(rp(getArticleUrl[i])) // create a promise for each url and fire off the request
             }
             return Promise.all(promises)
-        }).then(function (arrayOfResultsFromEachPreviousRequest) {
+        })
+        .then(function (arrayOfResultsFromEachPreviousRequest) {
             for (let i = 0; i < arrayOfResultsFromEachPreviousRequest.length; i++) {
                 const $ = cheerio.load(arrayOfResultsFromEachPreviousRequest[i])
                 const articlePicture = $('.pc-bigArticle section .pc-article-pic-full img').attr("src")
@@ -134,7 +150,7 @@ router.get('/', checkAuth, function (req, res) {
                 const getArticleUrl = $('meta[property="og:url"]').attr('content')
                 const articleId = $('meta[property="og:url"]').attr('content').replace(/[^\d]/g, "")
                 // console.log(getArticleUrl)
-                allData.push({
+                newTenArticle.push({
                     articlePicture: articlePicture,
                     getArticleUrl: getArticleUrl,
                     author: author,
@@ -143,14 +159,26 @@ router.get('/', checkAuth, function (req, res) {
                     date: date,
                     articleId: articleId
                 })
+
+                firebase.database().ref('currentAffairs/').orderByChild("articleId").equalTo(newTenArticle[i].articleId).once("value", snapshot => {
+                    const articleId = snapshot.val()
+                    if (articleId) {
+                        //console.log("exists!")
+                    } else {
+                        firebase.database().ref('currentAffairs/').push(
+                            newTenArticle[i]
+                        )
+                    }
+                })
             }
 
-            //console.log(allData)
-            res.status(200).json({ allData })
+            //console.log(newTenArticle)
+            res.status(200).json({ newTenArticle })
         })
         .catch(function (err) {
             console.log(err)
         })
 })
+
 
 module.exports = router

@@ -21,7 +21,7 @@ router.get('/:keyword/:quantity', checkAuth, function (req, res) {
         }
     }
     let Article = {}
-    const numberOfArticle = ""
+    let numberOfArticle = ""
     rp(options)
         .then(function ($) {
             const ArticleX = $('main .BreadCrumbs #search_info').contents().filter(function () {
@@ -53,7 +53,7 @@ router.get('/:keyword/:quantity', checkAuth, function (req, res) {
             return Promise.all(promises)
         })
         .then(function (arrayOfResultsFromEachPreviousRequest) {
-            const indexOfArticle = 1
+            let indexOfArticle = 1
             let Article = []
             const lastArticleOfpageSnumber = ((numberOfArticle - quantity) % 10)
             for (let i = 0; i < arrayOfResultsFromEachPreviousRequest.length; i++) {

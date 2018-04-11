@@ -3,7 +3,7 @@ const express = require('express')
 const app = express()
 
 const firebase = require("firebase")
-constnfig = {
+config = {
     apiKey: "AIzaSyAe0Nf23fdC34PqSNAauVz6s2JGgLK6DQg",
     authDomain: "gvm-crawler.firebaseapp.com",
     databaseURL: "https://gvm-crawler.firebaseio.com",
