@@ -28,13 +28,13 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 //Routes which should handle requests
-app.use('/currentAffairs', router.currentAffairs)
-app.use('/chinaAndTaiwan', router.chinaAnadTaiwan)
-app.use('/education', router.education)
-app.use('/finance', router.finance)
-app.use('/international', router.international)
-app.use('/life', router.life)
-app.use('/search', router.search)
+app.use('/api/currentAffairs', router.currentAffairs)
+app.use('/api/chinaAndTaiwan', router.chinaAnadTaiwan)
+app.use('/api/education', router.education)
+app.use('/api/finance', router.finance)
+app.use('/api/international', router.international)
+app.use('/api/life', router.life)
+app.use('/api/search', router.search)
 app.use('/user', router.user)
 
 // errro control

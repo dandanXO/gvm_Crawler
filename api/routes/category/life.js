@@ -81,7 +81,7 @@ router.get('/:time', checkAuth, function (req, res) {
                             //console.log("exists!")
                         } else {
                             firebase.database().ref('life/').push(
-                                allData[i]
+                                newTenArticle[i]
                             )
                         }
                     })
