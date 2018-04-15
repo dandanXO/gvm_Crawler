@@ -28,8 +28,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 //Routes which should handle requests
-app.use('/api/currentAffairs', router.currentAffairs)
-app.use('/api/chinaAndTaiwan', router.chinaAnadTaiwan)
+app.use('/api/currentaffairs', router.currentAffairs)
+app.use('/api/chinaandtaiwan', router.chinaAnadTaiwan)
 app.use('/api/education', router.education)
 app.use('/api/finance', router.finance)
 app.use('/api/international', router.international)
