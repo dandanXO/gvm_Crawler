@@ -20,7 +20,9 @@ router.get('/:time', checkAuth, function (req, res) {
     const allData = []
     console.log(req.params.time + "開始爬蟲")
     const date = new Date(req.params.time)
+    
     timer = schedule.scheduleJob(date, function () {
+        console.log("Start at" + new Date())
         const options = {
             uri: 'https://www.gvm.com.tw/category.html?cg_no=6',
             transform: function (body) {
@@ -81,29 +83,31 @@ router.get('/:time', checkAuth, function (req, res) {
                             //console.log("exists!")
                         } else {
                             firebase.database().ref('life/').push(
-                                newTenArticle[i]
+                                allData[i]
                             )
                         }
                     })
-    
-                }
 
+                }
                 console.log(allData)
-                res.status(200).json({ allData })
-                timer.cancel()
             })
             .catch(function (err) {
-                timer.cancel()
                 console.log(err)
             })
     })
+
+    firebase.database().ref('schedule/').push({
+        Classification:"life",
+        ClassificationId:"6",
+        date: req.params.time 
+    })
+    res.status(200).json({ 開始爬蟲時間: req.params.time })
 })
 
 router.get('/', checkAuth, function (req, res) {
     const newTenArticle = []
     console.log("開始爬蟲")
     const date = new Date(req.params.time)
-
     const options = {
         uri: 'https://www.gvm.com.tw/category.html?cg_no=6',
         transform: function (body) {
@@ -179,6 +183,5 @@ router.get('/', checkAuth, function (req, res) {
             console.log(err)
         })
 })
-
 
 module.exports = router

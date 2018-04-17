@@ -87,16 +87,18 @@ router.get('/:time', checkAuth, function (req, res) {
                     })
 
                 }
-
                 console.log(allData)
-                res.status(200).json({ allData })
-                timer.cancel()
             })
             .catch(function (err) {
-                timer.cancel()
                 console.log(err)
             })
     })
+    firebase.database().ref('schedule/').push({
+        Classification: "finance",
+        ClassificationId: "4",
+        date: req.params.time
+    })
+    res.status(200).json({ 開始爬蟲時間: req.params.time })
 })
 
 router.get('/', checkAuth, function (req, res) {

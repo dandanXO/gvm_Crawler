@@ -2,6 +2,7 @@
 const express = require('express')
 const app = express()
 
+
 const firebase = require("firebase")
 config = {
     apiKey: "AIzaSyAe0Nf23fdC34PqSNAauVz6s2JGgLK6DQg",
@@ -12,7 +13,6 @@ config = {
     messagingSenderId: "960810433812"
 }
 firebase.initializeApp(config)
-
 
 const bodyParser = require('body-parser')
 const rp = require('request-promise')
@@ -36,6 +36,7 @@ app.use('/api/international', router.international)
 app.use('/api/life', router.life)
 app.use('/api/search', router.search)
 app.use('/user', router.user)
+app.use('/api/restartschedule',router.reStartSchedule)
 
 // errro control
 app.use((req, res, next) => {

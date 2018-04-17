@@ -18,7 +18,7 @@ router.post('/signin', function (req, res, next) {
             },
                 process.env.JWT_KEY,
                 {
-                    expiresIn: "1h"
+                    expiresIn: "365d"
                 })
             res.status(201).json({
                 message: "signin seccful",

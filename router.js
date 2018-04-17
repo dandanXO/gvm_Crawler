@@ -7,4 +7,5 @@ module.exports = {
     life : require('./api/routes/category/life'),
     search : require('./api/routes/search'),
     user : require('./api/routes/user/user'),
+    reStartSchedule: require('./api/routes/reStartSchedule')
 }
