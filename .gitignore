@@ -6,8 +6,6 @@ node_modules
 
 .nyc_output
 
-.ebextensions
-
 .deployment
 
 # Elastic Beanstalk Files

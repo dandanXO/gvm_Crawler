@@ -2,6 +2,10 @@ branch-defaults:
   master:
     environment: dev-env2
     group_suffix: null
+environment-defaults:
+  dev-env2:
+    branch: null
+    repository: null
 global:
   application_name: seilie2
   branch: null
