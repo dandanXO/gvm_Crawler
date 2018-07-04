@@ -1,7 +1,7 @@
 
 const firebase = require("firebase")
 config = {
-    apiKey: "AIzaSyAe0Nf23fdC34PqSNAauVz6s2JGgLK6DQg",
+    apiKey: "",
     authDomain: "gvm-crawler.firebaseapp.com",
     databaseURL: "https://gvm-crawler.firebaseio.com",
     projectId: "gvm-crawler",
