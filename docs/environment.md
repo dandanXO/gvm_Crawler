@@ -36,7 +36,7 @@ Printing Status:
 INFO: createEnvironment is starting.
  -- Events -- (safe to Ctrl+C) Use "eb abort" to cancel the command.
 ```
-完畢之後,如果有`git`版本控制，確定`code`的`git commit` 已經完成就能輸入`eb deplay`發布至AWS Elastic Beanstalk
+完畢之後,如果有`git`版本控制，確定`code`的`git commit` 已經完成就能輸入`eb deploy`發布至AWS Elastic Beanstalk
 4. 最後 `eb open` 顯示出網站瀏覽
 
 # 初始資料設定
